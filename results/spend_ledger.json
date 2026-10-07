@@ -1,0 +1,13 @@
+{
+  "cap_usd": 4.0,
+  "entries": [
+    {
+      "timestamp": "2026-10-07T13:41:09+00:00",
+      "run_id": "20261007T133813Z",
+      "model": "haiku",
+      "cost_usd": 0.003933000000000001,
+      "calls": 20,
+      "note": "batch msgbatch_01WuiG2NnuAn7oqYZcEWqKmo"
+    }
+  ]
+}

@@ -33,31 +33,32 @@ def load_label_spec(dataset: str) -> LabelSpec:
         return LabelSpec.model_validate(yaml.safe_load(f))
 
 
-def stratified_sample(labels: Sequence[str], n: int, seed: int) -> list[int]:
-    """Indices of a size-n sample whose class mix matches the population.
+def stratified_order(labels: Sequence[str], seed: int) -> list[int]:
+    """A seeded ordering of all indices in which every prefix is stratified.
 
-    Per-class quotas use largest-remainder rounding; ties are broken by a
-    seeded shuffle so the result is deterministic for a given seed.
+    Systematic stratified sampling: each class is shuffled, and its r-th member
+    gets position key (r + u_c) / size_c with a random per-class offset u_c.
+    Sorting by key interleaves classes in proportion, so any prefix of length n
+    holds within one example of each class's exact share. Prefixes are nested:
+    the 20-example dev sample is the first 20 of the 200-example sample.
     """
-    if n >= len(labels):
-        return list(range(len(labels)))
     rng = random.Random(seed)
     by_class: dict[str, list[int]] = defaultdict(list)
     for i, lab in enumerate(labels):
         by_class[lab].append(i)
-    classes = sorted(by_class)
-    exact = {c: n * len(by_class[c]) / len(labels) for c in classes}
-    quota = {c: int(exact[c]) for c in classes}
-    leftover = n - sum(quota.values())
-    order = classes[:]
-    rng.shuffle(order)
-    order.sort(key=lambda c: exact[c] - quota[c], reverse=True)  # stable: shuffle breaks ties
-    for c in order[:leftover]:
-        quota[c] += 1
-    picked: list[int] = []
-    for c in classes:
-        picked.extend(rng.sample(by_class[c], quota[c]))
-    return sorted(picked)
+    keyed: list[tuple[float, float, int]] = []
+    for c in sorted(by_class):
+        members = by_class[c][:]
+        rng.shuffle(members)
+        offset = rng.random()
+        keyed += [((r + offset) / len(members), rng.random(), i) for r, i in enumerate(members)]
+    keyed.sort()
+    return [i for _, _, i in keyed]
+
+
+def stratified_sample(labels: Sequence[str], n: int, seed: int) -> list[int]:
+    """First n indices of `stratified_order`: a nested, stratified, seeded sample."""
+    return stratified_order(labels, seed)[:n]
 
 
 def load_examples(name: str, cfg: BenchConfig, limit: int) -> list[Example]:

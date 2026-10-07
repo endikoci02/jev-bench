@@ -35,11 +35,11 @@ run:
 estimation:
   chars_per_token: 4.0
   overhead_input_tokens:              # fixed per-call overhead beyond prompt text
-    typesafe: 300                     # smoke test: 320 input tokens for a 9-word review
-    anthropic: 150                    # structured-output scaffolding (guess; recalibrated)
+    typesafe: 280                     # calibrated: SST-2 dev run, mean 354 input tokens
+    anthropic: 175                    # calibrated: SST-2 dev run (Haiku), mean 308 input tokens
   output_tokens:
-    typesafe: 32
-    anthropic: 25
+    typesafe: 31                      # observed: constant 31
+    anthropic: 18                      # observed: constant 17 on Haiku
   tokenizer_factor:                   # tokens relative to Haiku's tokenizer
     sonnet: 1.3
 

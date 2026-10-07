@@ -305,5 +305,10 @@ def _print_unit_summary(
 
 @app.command()
 def report() -> None:
-    """Build summary tables and charts (implemented in phase 4)."""
-    raise typer.Exit("`report` is not implemented yet (phase 4).")
+    """Build results/summary.csv, results/summary.md and results/charts/*.png from raw logs."""
+    from jev_bench.report import RESULTS_DIR, write_report
+
+    out = write_report(load_config())
+    console.print(f"{out['rows']} summary rows -> {RESULTS_DIR / 'summary.csv'}, summary.md")
+    for path in out["charts"]:
+        console.print(f"  chart {path.relative_to(RESULTS_DIR.parent)}")

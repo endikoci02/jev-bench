@@ -1,0 +1,4 @@
+dataset,model,mode,confidence_method,model_version,n,answered,accuracy,accuracy_ci_lo,accuracy_ci_hi,macro_f1,ece,ece_ci_lo,ece_ci_hi,mce,brier,auroc,confident_wrong_0.8,confident_wrong_0.9,hard_share,failure_rate,failures,latency_p50_ms,latency_p95_ms,latency_p99_ms,calls_per_decision,cost_per_1k_standard,cost_per_1k_batch
+sst2,jev,batch,native max-prob,jev-1.13.0,20,20,1.0,1.0,1.0,1.0,0.038499999999999944,0.010500000000000119,0.0734999999999999,0.22999999999999998,0.006424999999999998,,0.0,0.0,0.6,0.0,{},,,,1,0.0148554,
+sst2,jev,batch,API confidence,jev-1.13.0,20,20,1.0,1.0,1.0,1.0,0.07700000000000004,0.021000000000000078,0.14699999999999994,0.52,0.0257,,0.0,0.0,0.5,0.0,{},,,,1,0.0148554,
+sst2,haiku,batch,verbalized,claude-haiku-4-5-20251001,20,20,1.0,1.0,1.0,1.0,0.14400000000000018,0.1024875000000001,0.19600000000000006,0.44999999999999996,0.030940000000000002,,0.0,0.0,0.1,0.0,{},,,,1,0.3933,0.19665
