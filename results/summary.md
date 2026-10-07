@@ -11,6 +11,7 @@ Claude has no native probabilities here: its confidence is *verbalized* or *self
 | Jev (native max-prob) | 200 | 79.5% [74.0%, 85.0%] | 0.780 | 0.116 [0.080, 0.170] | 0.445 | 0.130 | 0.847 | 9.0% | 4.5% | 56.5% | 0.0% | $0.087 | n/a |
 | Jev (API confidence) | 200 | 79.5% [74.0%, 85.0%] | 0.780 | 0.116 [0.081, 0.172] | 0.435 | 0.129 | 0.846 | 9.0% | 4.5% | 56.5% | 0.0% | $0.087 | n/a |
 | Haiku 4.5 (verbalized) | 200 | 78.0% [72.0%, 83.0%] | 0.772 | 0.090 [0.063, 0.155] | 0.350 | 0.150 | 0.809 | 9.0% | 3.5% | 0.5% | 0.0% | $2.492 | $1.246 |
+| Haiku 4.5 (self-consistency) | 100 | 76.0% [67.0%, 84.0%] | 0.716 | 0.238 [0.164, 0.320] | 0.400 | 0.233 | 0.535 | 24.0% | 21.0% | 93.0% | 0.0% | $12.463 | $6.232 |
 | Sonnet 5.5 (verbalized) | 200 | 82.5% [77.5%, 88.0%] | 0.821 | 0.095 [0.065, 0.143] | 0.800 | 0.110 | 0.854 | 3.5% | 1.5% | 0.0% | 0.0% | $0.983 | $0.492 |
 
 ## clinc150
@@ -49,3 +50,13 @@ Client: Tirana, Albania (Europe). Concurrency per provider: {'typesafe': 4, 'ant
 | Jev | 50 | 266 | 397 | 653 | 0.0% |
 | Haiku 4.5 | 50 | 767 | 1,286 | 1,437 | 0.0% |
 | Sonnet 5.5 | 50 | 1,527 | 2,410 | 3,902 | 0.0% |
+
+## Same-subset comparison: banking77 (100 examples used by self-consistency)
+
+| model (confidence) | accuracy | ECE | AUROC | wrong@≥0.9 | hard ≥0.99 |
+|---|---|---|---|---|---|
+| Jev (native max-prob) | 79.0% | 0.123 | 0.808 | 6.0% | 57.0% |
+| Jev (API confidence) | 79.0% | 0.123 | 0.808 | 6.0% | 57.0% |
+| Haiku 4.5 (verbalized) | 75.0% | 0.112 | 0.790 | 4.0% | 0.0% |
+| Haiku 4.5 (self-consistency) | 76.0% | 0.238 | 0.535 | 21.0% | 93.0% |
+| Sonnet 5.5 (verbalized) | 81.0% | 0.121 | 0.855 | 3.0% | 0.0% |

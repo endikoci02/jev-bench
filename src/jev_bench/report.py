@@ -47,6 +47,7 @@ class Unit:
     gold: list[str]
     decisions: list[Decision]
     warmup: list[bool]
+    example_ids: list[str]
 
     @property
     def key(self) -> str:
@@ -75,22 +76,23 @@ def load_units(raw_dir: Path = RAW_DIR) -> list[Unit]:
     units: list[Unit] = []
     for path in sorted(raw_dir.glob("*.jsonl"), key=_model_order):
         dataset, model, mode = path.stem.split("__")
-        gold, decisions, warm = [], [], []
+        gold, decisions, warm, ids = [], [], [], []
         with path.open(encoding="utf-8") as f:
             for line in f:
                 r = json.loads(line)
                 gold.append(r["gold"])
                 decisions.append(Decision.model_validate(r["decision"]))
                 warm.append(bool(r.get("warmup")))
+                ids.append(r["example_id"])
         method = METHOD.get((model, mode), mode)
-        units.append(Unit(dataset, model, mode, method, gold, decisions, warm))
+        units.append(Unit(dataset, model, mode, method, gold, decisions, warm, ids))
         if model == "jev" and mode == "batch":
             # Same predictions, scored with the API's own `confidence` field.
             api = [
                 d.model_copy(update={"confidence": d.api_confidence}) if d.error is None else d
                 for d in decisions
             ]
-            units.append(Unit(dataset, model, mode, "API confidence", gold, api, warm))
+            units.append(Unit(dataset, model, mode, "API confidence", gold, api, warm, ids))
     return units
 
 
@@ -250,6 +252,45 @@ def summary_markdown(df: pd.DataFrame, cfg: BenchConfig) -> str:
     return "\n".join(lines) + "\n"
 
 
+def same_subset_markdown(units: list[Unit], n_bins: int) -> str:
+    """Compare every method on exactly the examples the self-consistency run used.
+
+    Self-consistency runs on a smaller subset (it costs k calls per example), so
+    its row in the main table is not directly comparable to 200-example rows.
+    """
+    sc = [u for u in units if u.mode == "self_consistency"]
+    if not sc:
+        return ""
+    lines = []
+    for s in sc:
+        ids = {d_id for d_id, w in zip(s.example_ids, s.warmup, strict=True) if not w}
+        lines += [
+            f"## Same-subset comparison: {s.dataset} "
+            f"({len(ids)} examples used by self-consistency)",
+            "",
+            "| model (confidence) | accuracy | ECE | AUROC | wrong@≥0.9 | hard ≥0.99 |",
+            "|---|---|---|---|---|---|",
+        ]
+        for u in units:
+            if u.dataset != s.dataset or u.mode == "latency":
+                continue
+            keep = [i for i, d_id in enumerate(u.example_ids) if d_id in ids]
+            sub = Unit(
+                u.dataset, u.model, u.mode, u.method,
+                [u.gold[i] for i in keep], [u.decisions[i] for i in keep],
+                [u.warmup[i] for i in keep], [u.example_ids[i] for i in keep],
+            )  # fmt: skip
+            correct_all, conf, corr = _arrays(sub)
+            lines.append(
+                f"| {u.label} | {_fmt(M.accuracy(correct_all), 'pct')} "
+                f"| {_fmt(M.ece(conf, corr, n_bins))} | {_fmt(M.auroc(conf, corr))} "
+                f"| {_fmt(M.confident_wrong_rate(conf, corr, 0.9), 'pct')} "
+                f"| {_fmt(M.hard_share(conf), 'pct')} |"
+            )
+        lines.append("")
+    return "\n".join(lines)
+
+
 # ---- charts -------------------------------------------------------------------
 
 
@@ -375,7 +416,9 @@ def write_report(cfg: BenchConfig, raw_dir: Path = RAW_DIR, out_dir: Path = RESU
     df = build_summary(units, cfg)
     out_dir.mkdir(parents=True, exist_ok=True)
     df.to_csv(out_dir / "summary.csv", index=False)
-    (out_dir / "summary.md").write_text(summary_markdown(df, cfg), encoding="utf-8")
+    md = summary_markdown(df, cfg)
+    subset = same_subset_markdown(units, cfg.run.ece_bins)
+    (out_dir / "summary.md").write_text(md + ("\n" + subset if subset else ""), encoding="utf-8")
     charts: list[Path] = []
     chart_dir = out_dir / "charts"
     chart_dir.mkdir(parents=True, exist_ok=True)
