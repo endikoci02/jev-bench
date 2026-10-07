@@ -291,7 +291,8 @@ def reliability_chart(units: list[Unit], dataset: str, n_bins: int, out: Path) -
             0.03, 0.97,
             f"ECE {M.ece(conf, corr, n_bins):.3f}\nhard ≥0.99: {M.hard_share(conf):.0%}\n"
             f"n = {conf.size}",
-            transform=ax.transAxes, va="top", fontsize=11, color=TEXT,
+            transform=ax.transAxes, va="top", fontsize=11, color=TEXT, zorder=5,
+            bbox={"facecolor": SURFACE, "edgecolor": GRID, "boxstyle": "round", "alpha": 0.9},
         )  # fmt: skip
         hx = fig.add_subplot(grid[1, j], sharex=ax)
         _style_axes(hx)

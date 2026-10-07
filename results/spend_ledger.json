@@ -8,6 +8,198 @@
       "cost_usd": 0.003933000000000001,
       "calls": 20,
       "note": "batch msgbatch_01WuiG2NnuAn7oqYZcEWqKmo"
+    },
+    {
+      "timestamp": "2026-10-07T13:55:26+00:00",
+      "run_id": "20261007T135144Z",
+      "model": "haiku",
+      "cost_usd": 0.0039335,
+      "calls": 20,
+      "note": "batch msgbatch_013kZJLvR7Y3qgrPDdWtQJ1Z"
+    },
+    {
+      "timestamp": "2026-10-07T13:58:38+00:00",
+      "run_id": "20261007T135144Z",
+      "model": "haiku",
+      "cost_usd": 0.024944,
+      "calls": 20,
+      "note": "batch msgbatch_01CbieVkpw586FpEirvFaRSV"
+    },
+    {
+      "timestamp": "2026-10-07T14:01:19+00:00",
+      "run_id": "20261007T135144Z",
+      "model": "haiku",
+      "cost_usd": 0.03575849999999999,
+      "calls": 20,
+      "note": "batch msgbatch_01JggogV5YyXath5vgMLV3Hy"
+    },
+    {
+      "timestamp": "2026-10-07T14:04:32+00:00",
+      "run_id": "20261007T135144Z",
+      "model": "haiku",
+      "cost_usd": 0.004357999999999999,
+      "calls": 20,
+      "note": "batch msgbatch_01GsNohyvdHiiR1my1t9yJPU"
+    },
+    {
+      "timestamp": "2026-10-07T14:18:42+00:00",
+      "run_id": "20261007T140703Z",
+      "model": "sonnet",
+      "cost_usd": 0.009866999999999999,
+      "calls": 20,
+      "note": "batch msgbatch_018vHHCR2fbQCMJwrJLX2VrE"
+    },
+    {
+      "timestamp": "2026-10-07T14:24:42+00:00",
+      "run_id": "20261007T140703Z",
+      "model": "sonnet",
+      "cost_usd": 0.0128022,
+      "calls": 20,
+      "note": "batch msgbatch_012hKn7KSnySKTYJVfK3qKiE"
+    },
+    {
+      "timestamp": "2026-10-07T14:30:41+00:00",
+      "run_id": "20261007T140703Z",
+      "model": "sonnet",
+      "cost_usd": 0.016409250000000004,
+      "calls": 20,
+      "note": "batch msgbatch_01VKzb5iQuNM9cVdHaGTTb6q"
+    },
+    {
+      "timestamp": "2026-10-07T14:36:57+00:00",
+      "run_id": "20261007T140703Z",
+      "model": "sonnet",
+      "cost_usd": 0.011194000000000003,
+      "calls": 20,
+      "note": "batch msgbatch_01FUznWJ7cnLGQgNTf5PDsYG"
+    },
+    {
+      "timestamp": "2026-10-07T14:43:09+00:00",
+      "run_id": "20261007T143915Z",
+      "model": "haiku",
+      "cost_usd": 0.0196795,
+      "calls": 100,
+      "note": "batch msgbatch_01CAmo1TZ11byTfN1DZisgJ5"
+    },
+    {
+      "timestamp": "2026-10-07T14:46:02+00:00",
+      "run_id": "20261007T143915Z",
+      "model": "haiku",
+      "cost_usd": 0.015192999999999996,
+      "calls": 77,
+      "note": "batch msgbatch_01S6jjpZpSFEbj3PJeTMt2zp"
+    },
+    {
+      "timestamp": "2026-10-07T14:49:44+00:00",
+      "run_id": "20261007T143915Z",
+      "model": "haiku",
+      "cost_usd": 0.12460349999999998,
+      "calls": 100,
+      "note": ""
+    },
+    {
+      "timestamp": "2026-10-07T14:53:38+00:00",
+      "run_id": "20261007T143915Z",
+      "model": "haiku",
+      "cost_usd": 0.09968000000000005,
+      "calls": 80,
+      "note": ""
+    },
+    {
+      "timestamp": "2026-10-07T14:56:19+00:00",
+      "run_id": "20261007T143915Z",
+      "model": "haiku",
+      "cost_usd": 0.17885899999999993,
+      "calls": 100,
+      "note": ""
+    },
+    {
+      "timestamp": "2026-10-07T14:58:26+00:00",
+      "run_id": "20261007T143915Z",
+      "model": "haiku",
+      "cost_usd": 0.14305799999999994,
+      "calls": 80,
+      "note": ""
+    },
+    {
+      "timestamp": "2026-10-07T15:03:07+00:00",
+      "run_id": "20261007T143915Z",
+      "model": "haiku",
+      "cost_usd": 0.021566000000000005,
+      "calls": 100,
+      "note": "batch msgbatch_01Rp9uqLm3xS2YGKoqUX76fu"
+    },
+    {
+      "timestamp": "2026-10-07T15:07:18+00:00",
+      "run_id": "20261007T143915Z",
+      "model": "haiku",
+      "cost_usd": 0.017554000000000004,
+      "calls": 80,
+      "note": "batch msgbatch_01CDrdTnKvrFPete1fnHc2ck"
+    },
+    {
+      "timestamp": "2026-10-07T15:16:42+00:00",
+      "run_id": "20261007T150925Z",
+      "model": "sonnet",
+      "cost_usd": 0.049526000000000014,
+      "calls": 100,
+      "note": "batch msgbatch_01CPeo39uGWvtZzv9C2sxrXm"
+    },
+    {
+      "timestamp": "2026-10-07T15:28:25+00:00",
+      "run_id": "20261007T150925Z",
+      "model": "sonnet",
+      "cost_usd": 0.03978799999999999,
+      "calls": 80,
+      "note": "batch msgbatch_01DLSpK4JiSKxhAoC17WwvDJ"
+    },
+    {
+      "timestamp": "2026-10-07T15:34:54+00:00",
+      "run_id": "20261007T150925Z",
+      "model": "sonnet",
+      "cost_usd": 0.0491442,
+      "calls": 100,
+      "note": "batch msgbatch_01NrjhuSqD3nznafSGSVJMM2"
+    },
+    {
+      "timestamp": "2026-10-07T15:41:52+00:00",
+      "run_id": "20261007T150925Z",
+      "model": "sonnet",
+      "cost_usd": 0.036385,
+      "calls": 80,
+      "note": "batch msgbatch_01CyU1ziKjJZUS2cK7nsZc7z"
+    },
+    {
+      "timestamp": "2026-10-07T15:49:29+00:00",
+      "run_id": "20261007T150925Z",
+      "model": "sonnet",
+      "cost_usd": 0.06150925000000002,
+      "calls": 100,
+      "note": ""
+    },
+    {
+      "timestamp": "2026-10-07T15:57:13+00:00",
+      "run_id": "20261007T150925Z",
+      "model": "sonnet",
+      "cost_usd": 0.044950000000000004,
+      "calls": 80,
+      "note": "batch msgbatch_015mdk311vL74ezibvg5LsX3"
+    },
+    {
+      "timestamp": "2026-10-07T16:06:18+00:00",
+      "run_id": "20261007T150925Z",
+      "model": "sonnet",
+      "cost_usd": 0.05517799999999999,
+      "calls": 100,
+      "note": ""
+    },
+    {
+      "timestamp": "2026-10-07T16:15:38+00:00",
+      "run_id": "20261007T150925Z",
+      "model": "sonnet",
+      "cost_usd": 0.044980000000000006,
+      "calls": 80,
+      "note": "batch msgbatch_016SpJCDC1GbGwomaoAvBPDL"
     }
   ]
 }
