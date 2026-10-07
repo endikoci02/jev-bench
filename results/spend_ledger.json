@@ -200,6 +200,30 @@
       "cost_usd": 0.044980000000000006,
       "calls": 80,
       "note": "batch msgbatch_016SpJCDC1GbGwomaoAvBPDL"
+    },
+    {
+      "timestamp": "2026-10-07T16:19:01+00:00",
+      "run_id": "20261007T161816Z",
+      "model": "haiku",
+      "cost_usd": 0.021471999999999998,
+      "calls": 55,
+      "note": ""
+    },
+    {
+      "timestamp": "2026-10-07T16:19:01+00:00",
+      "run_id": "20261007T161816Z",
+      "model": "sonnet",
+      "cost_usd": 0.029382000000000002,
+      "calls": 30,
+      "note": ""
+    },
+    {
+      "timestamp": "2026-10-07T16:19:11+00:00",
+      "run_id": "20261007T161816Z",
+      "model": "sonnet",
+      "cost_usd": 0.024569999999999998,
+      "calls": 25,
+      "note": "end of run"
     }
   ]
 }

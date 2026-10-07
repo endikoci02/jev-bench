@@ -357,6 +357,7 @@ def scatter_chart(
             ax.annotate(r["dataset"], (r[x], r["accuracy"]), xytext=(7, 4),
                         textcoords="offset points", fontsize=10, color=TEXT_2)  # fmt: skip
     ax.set_xscale("log")
+    ax.xaxis.set_major_locator(matplotlib.ticker.LogLocator(subs=(1.0, 2.0, 5.0)))
     ax.xaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
     ax.xaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: f"{unit}{v:g}"))
     ax.set_ylim(max(0.0, float(rows["accuracy"].min()) - 0.05), 1.01)
@@ -385,7 +386,8 @@ def write_report(cfg: BenchConfig, raw_dir: Path = RAW_DIR, out_dir: Path = RESU
         charts.append(selective_chart(units, ds, chart_dir / f"selective_{ds}.png"))
     for path in (
         scatter_chart(df, "latency_p50_ms", "p50 latency, ms (log; sync API from Tirana)",
-                      "Accuracy vs latency", chart_dir / "accuracy_vs_latency.png"),
+                      "Accuracy vs latency (latency measured on SST-2 prompts)",
+                      chart_dir / "accuracy_vs_latency.png", unit=""),
         scatter_chart(df, "cost_per_1k_standard", "USD per 1k decisions (log; standard prices)",
                       "Accuracy vs cost", chart_dir / "accuracy_vs_cost.png", unit="$"),
     ):  # fmt: skip

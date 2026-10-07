@@ -40,3 +40,12 @@ Claude has no native probabilities here: its confidence is *verbalized* or *self
 | Haiku 4.5 (verbalized) | 200 | 98.0% [96.0%, 99.5%] | 0.980 | 0.086 [0.065, 0.104] | 0.350 | 0.032 | 0.687 | 1.5% | 0.5% | 3.5% | 0.0% | $0.394 | $0.197 |
 | Sonnet 5.5 (verbalized) | 200 | 98.0% [96.0%, 99.5%] | 0.980 | 0.070 [0.052, 0.090] | 0.400 | 0.029 | 0.733 | 1.0% | 1.0% | 7.5% | 0.0% | $0.992 | $0.496 |
 
+## Latency (sync Messages API / Jev API)
+
+Client: Tirana, Albania (Europe). Concurrency per provider: {'typesafe': 4, 'anthropic': 4}. 5 warmup calls excluded. Dataset: sst2.
+
+| model | n | p50 ms | p95 ms | p99 ms | failures |
+|---|---|---|---|---|---|
+| Jev | 50 | 266 | 397 | 653 | 0.0% |
+| Haiku 4.5 | 50 | 767 | 1,286 | 1,437 | 0.0% |
+| Sonnet 5.5 | 50 | 1,527 | 2,410 | 3,902 | 0.0% |
