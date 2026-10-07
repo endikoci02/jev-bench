@@ -20,3 +20,6 @@ results/*.ledger.bak
 
 # pytest temp dirs (sandboxed runs put them in the cwd)
 pytest-of-*/
+
+# personal drafts (blog / LinkedIn), not part of the project
+drafts/

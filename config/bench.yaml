@@ -19,7 +19,7 @@ run:
     calls_per_model: 50
     warmup_calls: 5
     dataset: sst2
-    client_location: "Tirana, Albania (Europe)"
+    client_location: "a single client in Europe"
   self_consistency:
     model: haiku
     dataset: banking77

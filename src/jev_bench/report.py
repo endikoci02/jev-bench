@@ -428,7 +428,7 @@ def write_report(cfg: BenchConfig, raw_dir: Path = RAW_DIR, out_dir: Path = RESU
         )
         charts.append(selective_chart(units, ds, chart_dir / f"selective_{ds}.png"))
     for path in (
-        scatter_chart(df, "latency_p50_ms", "p50 latency, ms (log; sync API from Tirana)",
+        scatter_chart(df, "latency_p50_ms", "p50 latency, ms (log; sync API, client in Europe)",
                       "Accuracy vs latency (latency measured on SST-2 prompts)",
                       chart_dir / "accuracy_vs_latency.png", unit=""),
         scatter_chart(df, "cost_per_1k_standard", "USD per 1k decisions (log; standard prices)",

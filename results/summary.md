@@ -43,7 +43,7 @@ Claude has no native probabilities here: its confidence is *verbalized* or *self
 
 ## Latency (sync Messages API / Jev API)
 
-Client: Tirana, Albania (Europe). Concurrency per provider: {'typesafe': 4, 'anthropic': 4}. 5 warmup calls excluded. Dataset: sst2.
+Client: a single client in Europe. Concurrency per provider: {'typesafe': 4, 'anthropic': 4}. 5 warmup calls excluded. Dataset: sst2.
 
 | model | n | p50 ms | p95 ms | p99 ms | failures |
 |---|---|---|---|---|---|
