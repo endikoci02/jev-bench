@@ -1,0 +1,4 @@
+instructions: What is the overall sentiment of this movie review sentence?
+labels:
+  negative: The sentence expresses a negative opinion of the movie.
+  positive: The sentence expresses a positive opinion of the movie.

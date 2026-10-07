@@ -1,0 +1,54 @@
+[project]
+name = "jev-bench"
+version = "0.1.0"
+description = "Reproducible benchmark: TypeSafe Jev vs Claude as classifiers (accuracy, latency, cost, calibration)"
+readme = "README.md"
+authors = [
+    { name = "endikoci", email = "119864677+endikoci@users.noreply.github.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=1.11.0",
+    "datasets>=5.1.0",
+    "matplotlib>=3.11.2",
+    "numpy>=2.4.6",
+    "pandas>=3.0.6",
+    "pydantic>=2.13.5",
+    "python-dotenv>=1.2.4",
+    "pyyaml>=6.0.3",
+    "rich>=15.0.0",
+    "tenacity>=9.1.4",
+    "typer>=0.27.3",
+    "typesafe-sdk>=0.7.2",
+]
+
+[project.scripts]
+jev-bench = "jev_bench:main"
+
+[build-system]
+requires = ["uv_build>=0.12.23,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "ruff>=0.16.10",
+    "types-pyyaml>=6.0.12.20260906",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF", "ANN"]
+ignore = ["ANN401"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["ANN"]
+"scripts/**" = ["ANN"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

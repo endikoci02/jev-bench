@@ -1,0 +1,4 @@
+instructions: Is this tweet offensive?
+labels:
+  non-offensive: The tweet contains no offensive language, insults, profanity or targeted abuse.
+  offensive: The tweet contains offensive language, insults, profanity, or targeted (veiled or direct) abuse.

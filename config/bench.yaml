@@ -1,0 +1,95 @@
+# jev-bench configuration. Edit prices, sizes and the budget cap here.
+# Prices are USD per million tokens. Sources: TypeSafe console, Anthropic pricing page (2026-10-07).
+
+budget:
+  cap_usd: 4.00                       # hard cap on cumulative Anthropic spend
+  ledger_path: results/spend_ledger.json
+
+cache_dir: .cache/calls
+hf_cache_dir: .cache/hf
+
+run:
+  seed: 42
+  limit: 200                          # examples per dataset
+  dev_limit: 20
+  concurrency:                        # concurrent in-flight sync calls per provider
+    typesafe: 4
+    anthropic: 4
+  latency:
+    calls_per_model: 50
+    warmup_calls: 5
+    dataset: sst2
+    client_location: "Tirana, Albania (Europe)"
+  self_consistency:
+    model: haiku
+    dataset: banking77
+    n_examples: 100
+    k: 5
+    temperature: 1.0
+  bootstrap:
+    n_resamples: 1000
+  ece_bins: 15
+
+# Priors for `jev-bench estimate` before any real usage exists. Once results/raw/
+# has logged calls for a (model, dataset), the observed mean usage replaces these.
+estimation:
+  chars_per_token: 4.0
+  overhead_input_tokens:              # fixed per-call overhead beyond prompt text
+    typesafe: 300                     # smoke test: 320 input tokens for a 9-word review
+    anthropic: 150                    # structured-output scaffolding (guess; recalibrated)
+  output_tokens:
+    typesafe: 32
+    anthropic: 25
+  tokenizer_factor:                   # tokens relative to Haiku's tokenizer
+    sonnet: 1.3
+
+models:
+  jev:
+    provider: typesafe
+    model_id: jev-latest
+    price_input: 0.042
+    price_output: 0.0
+    batch_discount: 0.0               # no batch API
+  haiku:
+    provider: anthropic
+    model_id: claude-haiku-4-5-20251001
+    price_input: 1.00
+    price_output: 5.00
+    batch_discount: 0.5
+    temperature: 0.0
+    max_tokens: 128
+    prompt_caching: false             # prompts are below Haiku 4.5's 4096-token minimum
+  sonnet:
+    provider: anthropic
+    model_id: claude-sonnet-5-5
+    price_input: 2.00
+    price_output: 10.00
+    batch_discount: 0.5
+    temperature: null                 # Sonnet 5.5 rejects non-default sampling params
+    thinking: between_tools           # thinking off; "disabled" is a 400 on this model
+    max_tokens: 128
+    prompt_caching: true              # 512-token minimum; used for batch runs only
+
+datasets:
+  sst2:
+    hf_path: stanfordnlp/sst2
+    split: validation
+    text_field: sentence
+    label_field: label
+  banking77:
+    hf_path: legacy-datasets/banking77   # PolyAI/banking77 uses an unsupported loading script
+    split: test
+    text_field: text
+    label_field: label
+  clinc150:
+    hf_path: clinc/clinc_oos
+    hf_config: plus
+    split: test
+    text_field: text
+    label_field: intent
+  offensive:
+    hf_path: cardiffnlp/tweet_eval
+    hf_config: offensive
+    split: test
+    text_field: text
+    label_field: label

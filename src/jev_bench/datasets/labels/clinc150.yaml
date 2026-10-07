@@ -1,0 +1,153 @@
+instructions: Which intent best describes this message to a virtual assistant? Choose oos if it matches none of the supported intents.
+labels:
+  oos: Out of scope - the request matches none of the other intents.
+  accept_reservations: Asks whether a restaurant accepts reservations.
+  account_blocked: Says their bank account is blocked or frozen.
+  alarm: Wants to set an alarm.
+  application_status: Asks about the status of a credit card or loan application.
+  apr: Asks about the APR of a card or loan.
+  are_you_a_bot: Asks whether the assistant is a bot or a human.
+  balance: Asks for an account balance.
+  bill_balance: Asks how much is owed on a bill.
+  bill_due: Asks when a bill is due.
+  book_flight: Wants to book a flight.
+  book_hotel: Wants to book a hotel.
+  calculator: Asks for a math calculation.
+  calendar: Asks what is on their calendar.
+  calendar_update: Wants to add or change a calendar event.
+  calories: Asks how many calories are in a food.
+  cancel: Wants to cancel the current request or action.
+  cancel_reservation: Wants to cancel a reservation.
+  car_rental: Wants to rent a car.
+  card_declined: Says their card was declined.
+  carry_on: Asks about carry-on luggage rules.
+  change_accent: Wants to change the assistant's accent.
+  change_ai_name: Wants to rename the assistant.
+  change_language: Wants to change the assistant's language.
+  change_speed: Wants the assistant to speak faster or slower.
+  change_user_name: Wants the assistant to call them by a different name.
+  change_volume: Wants to change the assistant's volume.
+  confirm_reservation: Wants to confirm a reservation.
+  cook_time: Asks how long to cook something.
+  credit_limit: Asks what their credit limit is.
+  credit_limit_change: Wants to raise or change their credit limit.
+  credit_score: Asks for their credit score.
+  current_location: Asks where they currently are.
+  damaged_card: Says their card is damaged.
+  date: Asks for today's date or the date of a day.
+  definition: Asks for the definition of a word.
+  direct_deposit: Asks how to set up direct deposit.
+  directions: Asks for directions to a place.
+  distance: Asks how far away a place is.
+  do_you_have_pets: Asks whether the assistant has pets.
+  exchange_rate: Asks for a currency exchange rate.
+  expiration_date: Asks when their card expires.
+  find_phone: Wants help finding their phone.
+  flight_status: Asks about the status of a flight.
+  flip_coin: Wants the assistant to flip a coin.
+  food_last: Asks how long food will keep.
+  freeze_account: Wants to freeze their account.
+  fun_fact: Wants a fun fact.
+  gas: Says the car needs gas or asks about fuel level.
+  gas_type: Asks what type of gas the car takes.
+  goodbye: Says goodbye.
+  greeting: Says hello or greets the assistant.
+  how_busy: Asks how busy a place is.
+  how_old_are_you: Asks the assistant's age.
+  improve_credit_score: Asks how to improve their credit score.
+  income: Asks about their income or salary.
+  ingredient_substitution: Asks what can replace an ingredient.
+  ingredients_list: Asks what ingredients a recipe needs.
+  insurance: Asks about their insurance plan or coverage.
+  insurance_change: Wants to change their insurance.
+  interest_rate: Asks for the interest rate on an account.
+  international_fees: Asks about fees for using a card abroad.
+  international_visa: Asks whether a visa is needed to travel to a country.
+  jump_start: Asks how to jump-start a car.
+  last_maintenance: Asks when the car last had maintenance.
+  lost_luggage: Says their luggage was lost.
+  make_call: Wants to make a phone call.
+  maybe: Answers maybe or is unsure.
+  meal_suggestion: Wants a meal suggestion.
+  meaning_of_life: Asks about the meaning of life.
+  measurement_conversion: Wants to convert a measurement between units.
+  meeting_schedule: Asks what meetings are scheduled.
+  min_payment: Asks for the minimum payment due.
+  mpg: Asks about the car's fuel efficiency.
+  new_card: Wants a new card.
+  next_holiday: Asks when the next holiday is.
+  next_song: Wants to skip to the next song.
+  'no': Answers no.
+  nutrition_info: Asks for nutrition information about a food.
+  oil_change_how: Asks how to change the car's oil.
+  oil_change_when: Asks when the car needs an oil change.
+  order: Wants to order a product.
+  order_checks: Wants to order checks.
+  order_status: Asks about the status of an order.
+  pay_bill: Wants to pay a bill.
+  payday: Asks when they get paid.
+  pin_change: Wants to change a PIN.
+  play_music: Wants to play music.
+  plug_type: Asks what plug or adapter a country uses.
+  pto_balance: Asks how much paid time off they have.
+  pto_request: Wants to request paid time off.
+  pto_request_status: Asks about the status of a time-off request.
+  pto_used: Asks how much paid time off they have used.
+  recipe: Asks for a recipe.
+  redeem_rewards: Wants to redeem reward points.
+  reminder: Asks what reminders they have.
+  reminder_update: Wants to create or change a reminder.
+  repeat: Wants the assistant to repeat what it said.
+  replacement_card_duration: Asks how long a replacement card takes.
+  report_fraud: Wants to report fraud on their account.
+  report_lost_card: Wants to report a lost card.
+  reset_settings: Wants to reset the assistant's settings.
+  restaurant_reservation: Wants to make a restaurant reservation.
+  restaurant_reviews: Asks for reviews of a restaurant.
+  restaurant_suggestion: Wants a restaurant suggestion.
+  rewards_balance: Asks how many reward points they have.
+  roll_dice: Wants the assistant to roll dice.
+  rollover_401k: Asks about rolling over a 401k.
+  routing: Asks for a bank routing number.
+  schedule_maintenance: Wants to schedule car maintenance.
+  schedule_meeting: Wants to schedule a meeting.
+  share_location: Wants to share their location.
+  shopping_list: Asks what is on their shopping list.
+  shopping_list_update: Wants to add to or change their shopping list.
+  smart_home: Wants to control a smart home device.
+  spelling: Asks how to spell a word.
+  spending_history: Asks about their past spending.
+  sync_device: Wants to sync or pair a device.
+  taxes: Asks about their taxes.
+  tell_joke: Wants to hear a joke.
+  text: Wants to send a text message.
+  thank_you: Says thank you.
+  time: Asks what time it is.
+  timer: Wants to set a timer.
+  timezone: Asks about a time zone.
+  tire_change: Asks how to change a tire.
+  tire_pressure: Asks about tire pressure.
+  todo_list: Asks what is on their to-do list.
+  todo_list_update: Wants to add to or change their to-do list.
+  traffic: Asks about traffic conditions.
+  transactions: Asks about recent transactions.
+  transfer: Wants to transfer money.
+  translate: Wants something translated.
+  travel_alert: Asks about travel alerts or advisories for a place.
+  travel_notification: Wants to notify the bank of upcoming travel.
+  travel_suggestion: Wants travel suggestions.
+  uber: Wants to book an Uber or ride.
+  update_playlist: Wants to add a song to a playlist.
+  user_name: Asks what name the assistant calls them.
+  vaccines: Asks which vaccines are needed for travel.
+  w2: Asks about their W-2 tax form.
+  weather: Asks about the weather.
+  what_are_your_hobbies: Asks about the assistant's hobbies.
+  what_can_i_ask_you: Asks what the assistant can do.
+  what_is_your_name: Asks the assistant's name.
+  what_song: Asks what song is playing.
+  where_are_you_from: Asks where the assistant is from.
+  whisper_mode: Wants the assistant to whisper or switch to quiet mode.
+  who_do_you_work_for: Asks who the assistant works for.
+  who_made_you: Asks who created the assistant.
+  'yes': Answers yes.

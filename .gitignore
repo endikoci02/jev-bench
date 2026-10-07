@@ -1,0 +1,22 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# python / tooling
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.idea/
+
+# benchmark artifacts
+.cache/
+results/raw/
+results/state/
+results/*.ledger.bak
+
+# pytest temp dirs (sandboxed runs put them in the cwd)
+pytest-of-*/
