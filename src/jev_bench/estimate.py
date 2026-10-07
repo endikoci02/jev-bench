@@ -33,7 +33,7 @@ class EstimateRow:
     cached_calls: int
     input_tokens_per_call: float
     output_tokens_per_call: float
-    source: Literal["observed", "prior"]
+    source: Literal["observed cost", "observed", "haiku-scaled", "prior"]
     cost_usd: float
 
     @property
@@ -65,6 +65,21 @@ def observed_usage(dataset: str, model: str) -> tuple[float, float] | None:
     return sum(ins) / len(ins), sum(outs) / len(outs)
 
 
+def observed_batch_cost(dataset: str, model: str) -> float | None:
+    """Mean real cost per call from the accuracy (batch) log, or None.
+
+    Unlike token counts, logged cost already reflects batch pricing and prompt-cache
+    reads/writes, so it is the right basis for batch estimates. It includes one cache
+    write per batch chunk, so it slightly overstates larger runs (the safe direction).
+    """
+    path = RAW_DIR / f"{dataset}__{model}__batch.jsonl"
+    if not path.exists():
+        return None
+    with path.open(encoding="utf-8") as f:
+        costs = [c for line in f if (c := json.loads(line)["decision"].get("cost_usd") or 0) > 0]
+    return sum(costs) / len(costs) if costs else None
+
+
 def prior_usage(
     cfg: BenchConfig, model: str, spec: LabelSpec, examples: list[Example]
 ) -> tuple[float, float]:
@@ -94,8 +109,14 @@ def estimate_row(
     cached_calls: int,
 ) -> EstimateRow:
     observed = observed_usage(dataset, model)
+    factor = cfg.estimation.tokenizer_factor.get(model)
+    reference = observed_usage(dataset, "haiku") if factor and observed is None else None
     if observed is not None:
         tin, tout, source = observed[0], observed[1], "observed"
+    elif reference is not None and factor is not None:
+        # Same prompt on another Claude model: scale Haiku's real usage by the
+        # tokenizer factor instead of trusting the character heuristic.
+        tin, tout, source = reference[0] * factor, reference[1] * factor, "haiku-scaled"
     else:
         tin, tout = prior_usage(cfg, model, spec, examples)
         source = "prior"
@@ -103,6 +124,9 @@ def estimate_row(
     per_call = (tin * m.price_input + tout * m.price_output) / 1e6
     if mode != "latency":  # accuracy and self-consistency runs go through the Batches API
         per_call *= 1 - m.batch_discount
+    real = observed_batch_cost(dataset, model) if mode == "batch" else None
+    if real is not None:
+        per_call, source = real, "observed cost"
     return EstimateRow(
         dataset=dataset,
         model=model,
