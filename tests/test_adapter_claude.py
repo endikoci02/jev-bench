@@ -52,7 +52,9 @@ def test_valid_verbalized(cfg, spec, cache, example):
     assert r.confidence_type == "verbalized"
     assert r.cost_usd == pytest.approx((400 * 1 + 20 * 5) / 1e6)  # standard price in sync mode
     p = fake.calls[0]
-    assert p["temperature"] == 0.0 and "thinking" not in p and "tool_choice" not in p
+    # SDK 1.x has no `temperature` kwarg; it must travel in extra_body
+    assert "temperature" not in p and p["extra_body"] == {"temperature": 0.0}
+    assert "thinking" not in p and "tool_choice" not in p
     schema = p["output_config"]["format"]["schema"]
     assert schema["properties"]["label"]["enum"] == ["negative", "positive"]
     assert "Dislikes it" in p["system"][0]["text"]  # same descriptions as Jev
@@ -63,7 +65,7 @@ def test_sonnet_params_follow_docs(cfg, spec, cache, example):
     d, fake = make(cfg, spec, cache, message('{"label": "positive", "confidence": 0.6}'), "sonnet")
     run(d, example)
     p = fake.calls[0]
-    assert "temperature" not in p  # Sonnet 5.5 rejects non-default sampling
+    assert "temperature" not in p and "extra_body" not in p  # Sonnet 5.5: default sampling
     assert p["thinking"] == {"type": "between_tools"}
 
 
@@ -100,6 +102,9 @@ def test_cache_and_sample_index(cfg, spec, cache, example):
     run(d, example, temperature=1.0, sample_index=1)
     run(d, example, temperature=1.0, sample_index=2)
     assert len(fake.calls) == 3
+    assert fake.calls[1]["extra_body"] == {"temperature": 1.0}
+    run(d, example, namespace="latency")  # latency runs never reuse accuracy results
+    assert len(fake.calls) == 4
 
 
 def test_batch_request_and_result(cfg, spec, cache, example):
@@ -107,6 +112,8 @@ def test_batch_request_and_result(cfg, spec, cache, example):
     custom_id, params = d.batch_request(example)
     assert len(custom_id) == 64
     assert params["system"][0]["cache_control"] == {"type": "ephemeral"}
+    haiku, _ = make(cfg, spec, cache, None)
+    assert haiku.batch_request(example)[1]["temperature"] == 0.0  # batch params forward it
     # batch and sync share the cache key: a batch result serves later sync reruns
     assert custom_id == d.key(example, d.params(example))
     usage = {"input_tokens": 10, "output_tokens": 20, "cache_read_input_tokens": 1000}

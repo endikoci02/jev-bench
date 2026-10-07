@@ -70,13 +70,18 @@ class ClaudeDecider:
             p["thinking"] = {"type": self.model.thinking}
         return p
 
-    def key(self, example: Example, params: dict[str, Any], sample_index: int = 0) -> str:
+    def key(
+        self, example: Example, params: dict[str, Any], sample_index: int = 0, namespace: str = ""
+    ) -> str:
         # cache_control only changes billing, not the answer, so it is excluded.
         system_text = params["system"][0]["text"]
+        payload = {"system": system_text, "user": example.text, "prompt": PROMPT_VERSION}
+        if namespace:
+            payload["namespace"] = namespace
         return cache_key(
             provider="anthropic",
             model=self.model.model_id,
-            payload={"system": system_text, "user": example.text, "prompt": PROMPT_VERSION},
+            payload=payload,
             params={k: v for k, v in params.items() if k not in ("system", "messages", "model")},
             sample_index=sample_index,
         )
@@ -90,16 +95,24 @@ class ClaudeDecider:
         *,
         temperature: float | None = None,
         sample_index: int = 0,
+        namespace: str = "",
     ) -> Decision:
+        """Sync call. A `namespace` (e.g. "latency") keeps a separate cache entry so
+        latency runs make their own timed calls instead of reusing batch results."""
         params = self.params(example, temperature=temperature)
-        key = self.key(example, params, sample_index)
+        key = self.key(example, params, sample_index, namespace)
         hit = self.cache.get(key)
         if hit is not None:
             return Decision.model_validate({**hit, "cached": True})
 
+        call = dict(params)
+        # SDK 1.x dropped `temperature` from create(); the API still honours it on
+        # Haiku 4.5, so it travels in extra_body. (Batch params forward it as-is.)
+        if "temperature" in call:
+            call["extra_body"] = {"temperature": call.pop("temperature")}
         start = time.perf_counter()
         try:
-            msg = await self.client.messages.create(**params)
+            msg = await self.client.messages.create(**call)
         except anthropic.APIError as e:
             return Decision(
                 confidence_type="verbalized",

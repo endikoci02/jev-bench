@@ -56,16 +56,16 @@ class JevDecider:
             },
         }
 
-    def key(self, example: Example) -> str:
-        return cache_key(
-            provider="typesafe",
-            model=self.model.model_id,
-            payload=self.payload(example),
-            params={},
-        )
+    def key(self, example: Example, namespace: str = "") -> str:
+        payload = self.payload(example)
+        if namespace:
+            payload["namespace"] = namespace
+        return cache_key(provider="typesafe", model=self.model.model_id, payload=payload, params={})
 
-    async def decide(self, example: Example, label_space: tuple[str, ...]) -> Decision:
-        key = self.key(example)
+    async def decide(
+        self, example: Example, label_space: tuple[str, ...], *, namespace: str = ""
+    ) -> Decision:
+        key = self.key(example, namespace)
         hit = self.cache.get(key)
         if hit is not None:
             return Decision.model_validate({**hit, "cached": True})

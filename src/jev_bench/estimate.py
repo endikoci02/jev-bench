@@ -46,6 +46,8 @@ def observed_usage(dataset: str, model: str) -> tuple[float, float] | None:
     ins: list[int] = []
     outs: list[int] = []
     for path in RAW_DIR.glob(f"{dataset}__{model}__*.jsonl"):
+        if path.stem.endswith("__self_consistency"):  # usage there is summed over k samples
+            continue
         with path.open(encoding="utf-8") as f:
             for line in f:
                 d = json.loads(line)["decision"]

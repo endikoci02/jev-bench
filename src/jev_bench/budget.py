@@ -81,9 +81,16 @@ class SpendLedger:
             )
 
     def record(
-        self, *, run_id: str, model: str, cost_usd: float, calls: int, note: str = ""
+        self,
+        *,
+        run_id: str,
+        model: str,
+        cost_usd: float,
+        calls: int,
+        note: str = "",
+        enforce: bool = True,
     ) -> None:
-        """Persist real spend, then raise if the cap is reached."""
+        """Persist real spend, then (if `enforce`) raise if the cap is reached."""
         if cost_usd < 0:
             raise ValueError("cost_usd must be non-negative")
         with self._lock:
@@ -98,7 +105,8 @@ class SpendLedger:
                 )
             )
             atomic_write_json(self.path, self._state.model_dump())
-        self.assert_under_cap()
+        if enforce:
+            self.assert_under_cap()
 
     def assert_under_cap(self) -> None:
         if self.spent >= self.cap_usd - _EPS:
